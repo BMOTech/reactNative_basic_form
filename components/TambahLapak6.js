@@ -164,6 +164,8 @@ export default class TambahLapak6 extends Component {
         },
         ],
 
+        check: [],
+
         items2: [{
             id: 1,
             name: "JNE"
@@ -225,40 +227,6 @@ export default class TambahLapak6 extends Component {
         this.setState({checkBoxStatus: !this.state.checkBoxStatus});
     }
 
-    checkCheck(name, condition){
-        this.setState({
-            checkedName: name,
-            conditione: condition
-        })
-
-        if(this.state.checkedName == name && this.state.conditione == condition)
-        {
-            this.setState({
-                checkedName: "",
-                conditione: false
-            })
-        }
-        
-    }
-
-    checkCheck2(name){
-        this.setState({
-            checkedName2: name,
-            condition: true
-        })
-
-        if(this.state.checkedName2 == name)
-        {
-            if(this.state.condition == true)
-            {
-                this.setState({
-                    checkedName2: ""
-                })
-            }
-        }
-        
-    }
-
     checkRadio(name){
         this.setState({
             selectedName: name
@@ -271,6 +239,47 @@ export default class TambahLapak6 extends Component {
             })
         }
     }
+
+    addCheck(set) {
+
+        if (!this.state.check.includes(set)) {
+          getCheck = this.state.check
+          getCheck.push(set)
+          this.setState({
+            check: getCheck
+          })
+        }
+    
+        else{
+            geCheck = this.state.check
+            geCheck = geCheck.filter(item => item !== set)
+            this.setState({
+              check: geCheck
+            })
+        }
+    
+      }
+
+      addCheck2(set) {
+
+        if (!this.state.check.includes(set)) {
+          getCheck = this.state.check
+          getCheck.push(set)
+          this.setState({
+            check: getCheck
+          })
+        }
+    
+        else{
+            geCheck = this.state.check
+            geCheck = geCheck.filter(item => item !== set)
+            this.setState({
+              check: geCheck
+            })
+        }
+    
+      }
+
     render() {
     return (
         <Container>
@@ -329,14 +338,10 @@ export default class TambahLapak6 extends Component {
                     </Button>
 
                     <Label style={styles.batasAtas}>Deskripsi</Label>
-                    <Item regular>
-                        <Textarea />
-                    </Item>
+                    <Textarea rowSpan={5} bordered/>
 
                     <Label style={styles.batasAtas}>Alamat Lengkap</Label>
-                    <Item regular>
-                        <Textarea />
-                    </Item>
+                    <Textarea rowSpan={5} bordered/>
 
                     <Label style={styles.batasAtas}>Kota</Label>
                     <Item regular>
@@ -370,16 +375,14 @@ export default class TambahLapak6 extends Component {
 
                     <Label style={styles.label}>Jenis barang (Kategori)</Label>
                     
-                    {this.state.items.map((item, index)=> {
-                        return (
-                            <ListItem key={item.name}>
-                                <CheckBox checked = {item.name ==  this.state.checkedName || item.condition == this.state.conditione ? true : false} onPress={()=> this.checkCheck(item.name, item.condition)}/>
-                                <Body>
-                                <Text>{item.name}</Text>
-                                </Body>
-                            </ListItem>
-                        )
-                    })}
+                    {this.state.items.map((items, key) => (
+                        <ListItem key={key}>
+                            <CheckBox onPress={() => this.addCheck(items.id)} checked={this.state.check.includes(items.id) ? true : false} />
+                        <Body>
+                            <Text>{items.name}</Text>
+                        </Body>
+                        </ListItem>
+                    ))}
                     
                     <Label style={styles.label}>Status Produk (Kategori)</Label>
                     
@@ -396,16 +399,14 @@ export default class TambahLapak6 extends Component {
                     
                     <Label style={styles.label}>Jasa Pengiriman</Label>
 
-                    {this.state.items2.map((item, index)=> {
-                        return (
-                            <ListItem key={item.name}>
-                                <CheckBox checked = {item.name ==  this.state.checkedName2  ? true : false} onPress={()=> this.checkCheck2(item.name)}/>
-                                <Body>
-                                <Text>{item.name}</Text>
-                                </Body>
-                            </ListItem>
-                        )
-                    })}
+                    {this.state.items2.map((items, key) => (
+                        <ListItem key={key}>
+                            <CheckBox onPress={() => this.addCheck2(items.id)} checked={this.state.check.includes(items.id) ? true : false} />
+                        <Body>
+                            <Text>{items.name}</Text>
+                        </Body>
+                        </ListItem>
+                    ))}
 
                     <ListItem>
                         <Button style={styles.buttone}>

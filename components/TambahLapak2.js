@@ -29,22 +29,20 @@ export default class TambahLapak2 extends Component{
 
     state = {
         checkedName: "",
+        checkede: false,
         checkedName2: "",
         selectedName: "",
         items: [{
             id: 1,
-            name: "Fashion Wanita",
-            condition: false
+            name: "Fashion Wanita"
         },
         {
             id: 2,
-            name: "Fashion Pria",
-            condition: false
+            name: "Fashion Pria"
         },
         {
             id: 3,
-            name: "Fashion Muslim",
-            condition: false
+            name: "Fashion Muslim"
         },
         {
             id: 4,
@@ -163,6 +161,8 @@ export default class TambahLapak2 extends Component{
         },
         ],
 
+        check: [],
+
         items2: [{
             id: 1,
             name: "JNE"
@@ -218,38 +218,6 @@ export default class TambahLapak2 extends Component{
         });
       }
 
-    checkCheck(name){
-        this.setState({
-            checkedName: name
-        })
-
-        if(this.state.checkedName == name)
-        {
-            this.setState({
-                checkedName: ""
-            })
-        }
-        
-    }
-
-    checkCheck2(name){
-        this.setState({
-            checkedName2: name,
-            condition: true
-        })
-
-        if(this.state.checkedName2 == name)
-        {
-            if(this.state.condition == true)
-            {
-                this.setState({
-                    checkedName2: ""
-                })
-            }
-        }
-        
-    }
-
     checkRadio(name){
         this.setState({
             selectedName: name
@@ -262,6 +230,46 @@ export default class TambahLapak2 extends Component{
             })
         }
     }
+
+    addCheck(set) {
+
+        if (!this.state.check.includes(set)) {
+          getCheck = this.state.check
+          getCheck.push(set)
+          this.setState({
+            check: getCheck
+          })
+        }
+    
+        else{
+            geCheck = this.state.check
+            geCheck = geCheck.filter(item => item !== set)
+            this.setState({
+              check: geCheck
+            })
+        }
+    
+      }
+
+      addCheck2(set) {
+
+        if (!this.state.check.includes(set)) {
+          getCheck = this.state.check
+          getCheck.push(set)
+          this.setState({
+            check: getCheck
+          })
+        }
+    
+        else{
+            geCheck = this.state.check
+            geCheck = geCheck.filter(item => item !== set)
+            this.setState({
+              check: geCheck
+            })
+        }
+    
+      }
 
     render(){
         return(
@@ -348,16 +356,19 @@ export default class TambahLapak2 extends Component{
 
                     <Label style={styles.label}>Jenis barang (Kategori)</Label>
 
-                    {this.state.items.map((item, index)=> {
-                        return (
-                            <ListItem key={item.name}>
-                                <CheckBox checked = {item.name ==  this.state.checkedName  ?  true : false} onPress={()=> this.checkCheck(item.name)}/>
-                                <Body>
-                                <Text>{item.name}</Text>
-                                </Body>
-                            </ListItem>
-                        )
-                    })}
+                    {this.state.items.map((items, key) => (
+                        <ListItem key={key}>
+                            <CheckBox onPress={() => this.addCheck(items.id)} checked={this.state.check.includes(items.id) ? true : false} />
+                        <Body>
+                            <Text>{items.name}</Text>
+                        </Body>
+                        </ListItem>
+                    ))}
+
+                    {/* {this.state.check.map((check, key) => (
+                        <Text key={key}>{check}</Text>
+                    ))} */}
+
 
                     
                     
@@ -376,16 +387,18 @@ export default class TambahLapak2 extends Component{
                     
                     <Label style={styles.label}>Jasa Pengiriman</Label>
 
-                    {this.state.items2.map((item, index)=> {
-                        return (
-                            <ListItem key={item.name}>
-                                <CheckBox checked = {item.name ==  this.state.checkedName2  ? true : false} onPress={()=> this.checkCheck2(item.name)}/>
-                                <Body>
-                                <Text>{item.name}</Text>
-                                </Body>
-                            </ListItem>
-                        )
-                    })}
+                    {this.state.items2.map((items, key) => (
+                        <ListItem key={key}>
+                            <CheckBox onPress={() => this.addCheck2(items.id)} checked={this.state.check.includes(items.id) ? true : false} />
+                        <Body>
+                            <Text>{items.name}</Text>
+                        </Body>
+                        </ListItem>
+                    ))}
+
+                    {/* {this.state.check.map((check, key) => (
+                        <Text key={key}>{check}</Text>
+                    ))} */}
 
                     <ListItem>
                         <Button style={styles.buttone}>

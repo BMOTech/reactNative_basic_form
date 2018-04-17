@@ -163,6 +163,8 @@ export default class TambahATCS extends Component{
         },
         ],
 
+        check: [],
+
         items2: [{
             id: 1,
             name: "JNE"
@@ -218,37 +220,7 @@ export default class TambahATCS extends Component{
         });
       }
 
-    checkCheck(name){
-        this.setState({
-            checkedName: name
-        })
 
-        if(this.state.checkedName == name)
-        {
-            this.setState({
-                checkedName: ""
-            })
-        }
-        
-    }
-
-    checkCheck2(name){
-        this.setState({
-            checkedName2: name,
-            condition: true
-        })
-
-        if(this.state.checkedName2 == name)
-        {
-            if(this.state.condition == true)
-            {
-                this.setState({
-                    checkedName2: ""
-                })
-            }
-        }
-        
-    }
 
     checkRadio(name){
         this.setState({
@@ -263,6 +235,46 @@ export default class TambahATCS extends Component{
         }
     }
 
+    addCheck(set) {
+
+        if (!this.state.check.includes(set)) {
+          getCheck = this.state.check
+          getCheck.push(set)
+          this.setState({
+            check: getCheck
+          })
+        }
+    
+        else{
+            geCheck = this.state.check
+            geCheck = geCheck.filter(item => item !== set)
+            this.setState({
+              check: geCheck
+            })
+        }
+    
+      }
+
+      addCheck2(set) {
+
+        if (!this.state.check.includes(set)) {
+          getCheck = this.state.check
+          getCheck.push(set)
+          this.setState({
+            check: getCheck
+          })
+        }
+    
+        else{
+            geCheck = this.state.check
+            geCheck = geCheck.filter(item => item !== set)
+            this.setState({
+              check: geCheck
+            })
+        }
+    
+      }
+
     render(){
         return(
             <Container>
@@ -276,86 +288,93 @@ export default class TambahATCS extends Component{
                 <Content padder>
                 <Form>
                     <Picker
-                        iosHeader="Select one"
-                        mode="dropdown"
+                        iosHeader="Asisten Lapangan Terdekat"
+                        androidHeader="Asisten Lapangan Terdekat"
+                        mode="modal"
                         selectedValue={this.state.selected1}
                         onValueChange={this.onValueChange.bind(this)}
-                        style={{marginLeft: 7, marginBottom: 10}}
+                        style={{marginLeft: -7, marginBottom: 10}}
                         >
+                        
                         <Picker.Item label="Asisten Lapangan Terdekat" value="key0" />
                         <Picker.Item label="Algojo" value="key1" />
                         <Picker.Item label="Sumanto" value="key2" />
                         <Picker.Item label="Diwan" value="key3" />
                         <Picker.Item label="Supri" value="key4" />
                     </Picker>
-                    <Item stackedLabel last>
-                        <Label>Nama Toko</Label>
-                        <Input />
-                    </Item>
-                    <Item stackedLabel last>
-                        <Label>Slogan</Label>
+
+                    <Label>Nama Toko</Label>
+                    <Item regular>
                         <Input />
                     </Item>
 
-                    <Item stackedLabel last>
-                        <Label>Logo Toko</Label>
-                        <Button transparent onPress={()=> {alert("Coming Soon")}}>
-                            <Text style={styles.fileChooser}>TAMBAHKAN FILE</Text>
-                        </Button>
+                    <Label style={styles.batasAtas}>Slogan</Label>
+                    <Item regular>
+                        <Input />
+                    </Item>
+                    
+                    <Label style={styles.batasAtas}>Logo Toko</Label>
+                    <Button transparent onPress={()=> {alert("Coming Soon")}}>
+                        <Text style={styles.fileChooser}>TAMBAHKAN FILE</Text>
+                    </Button>
+
+                    <Label style={styles.batasAtas}>Deskripsi</Label>
+                    <Item regular>
+                        <Input style={{height: 120}} />
                     </Item>
 
-                    <Item stackedLabel last>
-                        <Label>Deskripsi</Label>
-                        <Textarea />
+                    <Label style={styles.batasAtas}>Alamat Lengkap</Label>
+                    <Item regular>
+                        <Input style={{height: 120}} />
                     </Item>
 
-                    <Item stackedLabel last>
-                        <Label>Alamat Lengkap</Label>
-                        <Textarea />
-                    </Item>
-
-                    <Item stackedLabel last>
-                        <Label>Kota</Label>
+                    <Label style={styles.batasAtas}>Kota</Label>
+                    <Item regular>
                         <Input />
                     </Item>
 
-                    <Item stackedLabel last>
-                        <Label>Kode Pos</Label>
+                    <Label style={styles.batasAtas}>Kode Pos</Label>
+                    <Item regular>
                         <Input />
                     </Item>
 
-                    <Item stackedLabel last>
-                        <Label>Situs Web</Label>
+                    <Label style={styles.batasAtas}>Situs Web</Label>
+                    <Item regular>
                         <Input />
                     </Item>
 
-                    <Item stackedLabel last>
-                        <Label>No Telp</Label>
+                    <Label style={styles.batasAtas}>No Telp</Label>
+                    <Item regular>
                         <Input />
                     </Item>
 
-                    <Item stackedLabel last>
-                        <Label>Alamat Email</Label>
+                    <Label style={styles.batasAtas}>Alamat Email</Label>
+                    <Item regular>
                         <Input />
                     </Item>
 
-                    <Item stackedLabel last>
-                        <Label>Nama Bank dan No Rek</Label>
+                    <Label style={styles.batasAtas}>Nama Bank dan No Rek.</Label>
+                    <Item regular>
                         <Input />
                     </Item>
 
                     <Label style={styles.label}>Jenis barang (Kategori)</Label>
 
-                    {this.state.items.map((item, index)=> {
-                        return (
-                            <ListItem key={item.name}>
-                                <CheckBox checked = {item.name ==  this.state.checkedName  ? true : false} onPress={()=> this.checkCheck(item.name)}/>
-                                <Body>
-                                <Text>{item.name}</Text>
-                                </Body>
-                            </ListItem>
-                        )
-                    })}
+                    {this.state.items.map((items, key) => (
+                        <ListItem key={key}>
+                            <CheckBox onPress={() => this.addCheck(items.id)} checked={this.state.check.includes(items.id) ? true : false} />
+                        <Body>
+                            <Text>{items.name}</Text>
+                        </Body>
+                        </ListItem>
+                    ))}
+
+                    {/* {this.state.check.map((check, key) => (
+                        <Text key={key}>{check}</Text>
+                    ))} */}
+
+
+                    
                     
                     <Label style={styles.label}>Status Produk (Kategori)</Label>
                     
@@ -372,16 +391,18 @@ export default class TambahATCS extends Component{
                     
                     <Label style={styles.label}>Jasa Pengiriman</Label>
 
-                    {this.state.items2.map((item, index)=> {
-                        return (
-                            <ListItem key={item.name}>
-                                <CheckBox checked = {item.name ==  this.state.checkedName2  ? true : false} onPress={()=> this.checkCheck2(item.name)}/>
-                                <Body>
-                                <Text>{item.name}</Text>
-                                </Body>
-                            </ListItem>
-                        )
-                    })}
+                    {this.state.items2.map((items, key) => (
+                        <ListItem key={key}>
+                            <CheckBox onPress={() => this.addCheck2(items.id)} checked={this.state.check.includes(items.id) ? true : false} />
+                        <Body>
+                            <Text>{items.name}</Text>
+                        </Body>
+                        </ListItem>
+                    ))}
+
+                    {/* {this.state.check.map((check, key) => (
+                        <Text key={key}>{check}</Text>
+                    ))} */}
 
                     <ListItem>
                         <Button style={styles.buttone}>
