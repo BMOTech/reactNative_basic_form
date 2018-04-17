@@ -24,7 +24,7 @@ import {
     Card,
     CardItem,
     List } from 'native-base';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View,  Image } from 'react-native';
 export default class TambahLapak6 extends Component {
 
     state = {
@@ -32,186 +32,25 @@ export default class TambahLapak6 extends Component {
         conditione: false,
         checkedName2: "",
         selectedName: "",
-        items: [{
+        items4: [{
             id: 1,
-            name: "Fashion Wanita",
-            condition: true
+            name: "Baru"
         },
         {
             id: 2,
-            name: "Fashion Pria",
-            condition: true
-        },
-        {
-            id: 3,
-            name: "Fashion Muslim",
-            condition: true
-        },
-        {
-            id: 4,
-            name: "Fashion Anak",
-            
-        },
-        {
-            id: 5,
-            name: "Handphone dan Tablet",
-            
-        },
-        {
-            id: 6,
-            name: "Elektronik",
-            
-        },
-        {
-            id: 7,
-            name: "Kecantikan",
-            
-        },
-        {
-            id: 8,
-            name: "Kesehatan",
-            
-        },
-        {
-            id: 9,
-            name: "Ibu dan bayi",
-            
-        },
-        {
-            id: 10,
-            name: "Perawatan tubuh",
-            
-        },
-        {
-            id: 11,
-            name: "Rumah Tangga",
-            
-        },
-        {
-            id: 12,
-            name: "Gaming",
-            
-        },
-        {
-            id: 13,
-            name: "Laptop dan Aksesoris",
-            
-        },
-        {
-            id: 14,
-            name: "Komputer dan Aksesoris",
-            
-        },
-        {
-            id: 15,
-            name: "Kamera",
-            
-        },
-        {
-            id: 16,
-            name: "Otomotif",
-            
-        },
-        {
-            id: 17,
-            name: "Olahraga",
-            
-        },
-        {
-            id: 18,
-            name: "Film dan Musik",
-            
-        },
-        {
-            id: 19,
-            name: "Dapur",
-            
-        },
-        {
-            id: 20,
-            name: "Office dan Stationeri",
-            
-        },
-        {
-            id: 21,
-            name: "Sofenir dan Kado",
-            
-        },
-        {
-            id: 22,
-            name: "Mainan dan Hobi",
-            
-        },
-        {
-            id: 23,
-            name: "Makanan dan Minuman",
-            
-        },
-        {
-            id: 24,
-            name: "Buku",
-            
-        },
-        {
-            id: 25,
-            name: "Software",
-            
-        },
-        {
-            id: 26,
-            name: "Produk Lainya",
-            
+            name: "Bekas"
         },
         ],
 
-        check: [],
-
-        items2: [{
+        items5: [{
             id: 1,
-            name: "JNE"
+            name: "Ya"
         },
         {
             id: 2,
-            name: "TIKI"
+            name: "Tidak"
         },
-        {
-            id: 3,
-            name: "WAHANA"
-        },
-        {
-            id: 4,
-            name: "GO-JEK"
-        },
-        {
-            id: 5,
-            name: "POS Indonesia"
-        },
-        {
-            id: 6,
-            name: "First"
-        },
-        {
-            id: 7,
-            name: "SiCepat"
-        },
-        {
-            id: 8,
-            name: "J&T"
-        }
         ],
-
-        items3: [{
-            id: 1,
-            name: "Selalu Tersedia"
-        },
-        {
-            id: 2,
-            name: "Stock Terbatas"
-        },
-        {
-            id: 3,
-            name: "Stock Kosong"
-        }],
         selected1: "key0"
     }
 
@@ -290,123 +129,94 @@ export default class TambahLapak6 extends Component {
                     </Title>
                 </Body>
             </Header>
-            <Content padder>
-                <Form>
+            <Content>
                 <Card>
-                    <CardItem header>
-                        <Text style={{fontSize: 25}}>Toko 4</Text>
-                        <Text style={{marginLeft:140, color: '#b7b7b7'}}>08.00</Text>
-                    </CardItem>
                     <CardItem>
-                    <Body>
-                        <Text>
-                        Jln Wadepuk, Jakarta VIA JNE{"\n"}
-                        21 Maret 2018
-                        </Text>
-                    </Body>
+                        <Body>
+                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                                <View style={{ flex: 1 }}>
+                                    <Image style={{ width: 50, height: 50 }}
+                                        source={require('./images/logo.png')}
+                                    />
+                                </View>
+                                <View style={{ flex: 3 }}>
+                                    <Text style={styles.cardHeader}>Toko 4</Text>
+                                    <Text style={styles.cardContent}>Jln Wadepuk Jakarta</Text>    
+                                    <Text style={styles.cardDate}>21 Maret 2018</Text>
+                                </View>
+                                
+                                <View style={{flex:1}}>
+                                    <Text style={{marginTop:5}}>08.00</Text>
+                                    <Text style={{marginTop:5}}>JNE</Text>
+                                </View>
+                            
+                            </View>
+                        </Body>
                     </CardItem>
                 </Card>
-                <Picker
-                        iosHeader="Asisten Lapangan Terdekat"
-                        androidHeader="Asisten Lapangan Terdekat"
-                        mode="dropdown"
-                        selectedValue={this.state.selected1}
-                        onValueChange={this.onValueChange.bind(this)}
-                        style={{marginLeft: -7, marginBottom: 10}}
-                        >
+                <Form>
+                    <View style={{width: '95%', alignSelf:'center'}}>
+                        <Label style={styles.batasAtas}>Nama Produk (max 70 karakter)</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
+
+                        <Label style={styles.batasAtas}>Gambar Produk</Label>
+                        <Button transparent onPress={()=> {alert("Coming Soon")}}>
+                            <Text style={styles.fileChooser}>TAMBAHKAN FILE</Text>
+                        </Button>
+
+                        <Label style={styles.batasAtas}>Harga</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
+
+                        <Label style={styles.batasAtas}>Pemesanan minimun/buah</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
+
+                        <Label style={styles.batasAtas}>Kondisi</Label>
                         
-                        <Picker.Item label="Asisten Lapangan Terdekat" value="key0" />
-                        <Picker.Item label="Algojo" value="key1" />
-                        <Picker.Item label="Sumanto" value="key2" />
-                        <Picker.Item label="Diwan" value="key3" />
-                        <Picker.Item label="Supri" value="key4" />
-                    </Picker>
+                        {this.state.items4.map((item, index)=> {
+                            return(
+                                <ListItem key={item.name} style={styles.iteme}>
+                                    <Radio selected = {item.name == this.state.selectedName ? true : false} onPress={()=> this.checkRadio2(item.name)} />
+                                    <Body>
+                                    <Text>{item.name}</Text>
+                                    </Body>
+                                </ListItem>
+                            )
+                        } )}
 
-                    <Label>Nama Toko</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
+                        <Label style={styles.batasAtas}>Deskripsi Produk</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
 
-                    <Label style={styles.batasAtas}>Slogan</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
-                    
-                    <Label style={styles.batasAtas}>Logo Toko</Label>
-                    <Button transparent onPress={()=> {alert("Coming Soon")}}>
-                        <Text style={styles.fileChooser}>TAMBAHKAN FILE</Text>
-                    </Button>
+                        <Label style={styles.batasAtas}>Berat (kg)</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
 
-                    <Label style={styles.batasAtas}>Deskripsi</Label>
-                    <Textarea rowSpan={5} bordered/>
+                        <Label style={styles.batasAtas}>Aktifkan preorder untuk waktu proses produksi yang lebih lama</Label>
 
-                    <Label style={styles.batasAtas}>Alamat Lengkap</Label>
-                    <Textarea rowSpan={5} bordered/>
+                        {this.state.items5.map((item, index)=> {
+                            return(
+                                <ListItem key={item.name} style={styles.iteme}>
+                                    <Radio selected = {item.name == this.state.selectedName ? true : false} onPress={()=> this.checkRadio3(item.name)} />
+                                    <Body>
+                                    <Text>{item.name}</Text>
+                                    </Body>
+                                </ListItem>
+                            )
+                        } )}
 
-                    <Label style={styles.batasAtas}>Kota</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
-
-                    <Label style={styles.batasAtas}>Kode Pos</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
-
-                    <Label style={styles.batasAtas}>Situs Web</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
-
-                    <Label style={styles.batasAtas}>No Telp</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
-
-                    <Label style={styles.batasAtas}>Alamat Email</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
-
-                    <Label style={styles.batasAtas}>Nama Bank dan No Rek.</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
-
-                    <Label style={styles.label}>Jenis barang (Kategori)</Label>
-                    
-                    {this.state.items.map((items, key) => (
-                        <ListItem key={key}>
-                            <CheckBox onPress={() => this.addCheck(items.id)} checked={this.state.check.includes(items.id) ? true : false} />
-                        <Body>
-                            <Text>{items.name}</Text>
-                        </Body>
-                        </ListItem>
-                    ))}
-                    
-                    <Label style={styles.label}>Status Produk (Kategori)</Label>
-                    
-                    {this.state.items3.map((item, index)=> {
-                        return(
-                            <ListItem key={item.name}>
-                                <Radio selected = {item.name == this.state.selectedName ? true : false} onPress={()=> this.checkRadio(item.name)} />
-                                <Body>
-                                <Text>{item.name}</Text>
-                                </Body>
-                            </ListItem>
-                        )
-                    } )}
-                    
-                    <Label style={styles.label}>Jasa Pengiriman</Label>
-
-                    {this.state.items2.map((items, key) => (
-                        <ListItem key={key}>
-                            <CheckBox onPress={() => this.addCheck2(items.id)} checked={this.state.check.includes(items.id) ? true : false} />
-                        <Body>
-                            <Text>{items.name}</Text>
-                        </Body>
-                        </ListItem>
-                    ))}
+                        <Label style={styles.batasAtas}>Waktu Proses (wajib diisi untuk mengetahui lama produk diproses)</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
+                    </View>
 
                     <ListItem>
                         <Button style={styles.buttone}>
@@ -414,7 +224,6 @@ export default class TambahLapak6 extends Component {
                         </Button>
                     </ListItem>
                 </Form>
-
             </Content>
 
             <Footer>
@@ -442,6 +251,10 @@ const styles = StyleSheet.create({
         marginLeft: 43,
     },
 
+    iteme:{
+        marginLeft: -0.1
+    },
+
     batasAtas:{
         marginTop: 10
     },
@@ -457,5 +270,17 @@ const styles = StyleSheet.create({
     fileChooser:{
         color: '#156af2',
         marginLeft: -17
+    },
+
+    cardHeader: {
+        fontSize: 20,
+        marginBottom: 5,
+        color: '#0c0c0c'
+    },
+    cardContent: {
+        color: '#424242'
+    },
+    cardDate: {
+        marginTop: 5
     }
 })

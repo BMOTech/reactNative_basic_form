@@ -109,31 +109,31 @@ export default class AsistenLapak extends Component{
                 </Header>
                 <Content padder>
                 <Form>
-                    <Label>Produk Pesanan</Label>
+                    <Label style={styles.batasAtas}>Produk Pesanan</Label>
                     <Item regular>
                         <Input />
                     </Item>
 
-                    <Label>Stock Availability</Label>
+                    <Label style={styles.batasAtas}>Stock Availability</Label>
                     <Item regular>
                         <Input />
                     </Item>
 
-                    <Label>Special Request</Label>
+                    <Label style={styles.batasAtas}>Special Request</Label>
                     <Item regular>
                         <Input />
                     </Item>
                     
-                    <Label>Order Number</Label>
+                    <Label style={styles.batasAtas}>Order Number</Label>
                     <Item regular>
                         <Input />
                     </Item>
                     
-                    <Label style={styles.label}>Type of Shipping</Label>
+                    <Label style={styles.batasAtas}>Type of Shipping</Label>
                     
                     {this.state.items.map((item, index)=> {
                         return(
-                            <ListItem key={item.name}>
+                            <ListItem key={item.name} style={styles.iteme}>
                                 <Radio selected = {item.name == this.state.selectedName ? true : false} onPress={()=> this.checkRadio(item.name)} />
                                 <Body>
                                 <Text>{item.name}</Text>
@@ -142,11 +142,11 @@ export default class AsistenLapak extends Component{
                         )
                     } )}
 
-                    <Label style={styles.label}>Type of Packing</Label>
+                    <Label style={styles.batasAtas}>Type of Packing</Label>
                     
                     {this.state.items2.map((item, index)=> {
                         return(
-                            <ListItem key={item.name}>
+                            <ListItem key={item.name} style={styles.iteme}>
                                 <Radio selected = {item.name == this.state.selectedName2 ? true : false} onPress={()=> this.checkRadio2(item.name)} />
                                 <Body>
                                 <Text>{item.name}</Text>
@@ -155,22 +155,20 @@ export default class AsistenLapak extends Component{
                         )
                     } )}
 
-                    <Label>Name of Customer</Label>
+                    <Label style={styles.batasAtas}>Name of Customer</Label>
                     <Item regular>
                         <Input />
                     </Item>
 
-                    <Label>Customer Phone Number</Label>
+                    <Label style={styles.batasAtas}>Customer Phone Number</Label>
                     <Item regular>
                         <Input />
                     </Item>
 
-                    <Label>Customer Address</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
+                    <Label style={styles.batasAtas}>Customer Address</Label>
+                    <Textarea rowSpan={5} bordered/>
 
-                    <Label>Nearest Courier Location</Label>
+                    <Label style={styles.batasAtas}>Nearest Courier Location</Label>
                     <Item regular>
                         <Input />
                     </Item>
@@ -208,8 +206,16 @@ const styles = StyleSheet.create({
         marginLeft: 43,
     },
 
+    batasAtas:{
+        marginTop: 10
+    },
+
     labelBtn:{
         marginLeft: 55
+    },
+
+    iteme:{
+        marginLeft: -0.1
     },
 
     label:{
