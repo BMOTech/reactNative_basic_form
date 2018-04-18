@@ -24,10 +24,12 @@ import {
     List
 } from 'native-base'
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import ImagePicker from 'react-native-image-picker';
 
 export default class TambahLapak2 extends Component{
 
     state = {
+        ImageSource: null,
         checkedName: "",
         checkede: false,
         checkedName2: "",
@@ -256,8 +258,7 @@ export default class TambahLapak2 extends Component{
             selectedName: name
         })
 
-        if(this.state.selectedName == name)
-        {
+        if(this.state.selectedName == name){
             this.setState({
                 selectedName: ""
             })
@@ -269,8 +270,7 @@ export default class TambahLapak2 extends Component{
             selectedName: name
         })
 
-        if(this.state.selectedName == name)
-        {
+        if(this.state.selectedName == name){
             this.setState({
                 selectedName: ""
             })
@@ -280,11 +280,11 @@ export default class TambahLapak2 extends Component{
     addCheck(set) {
 
         if (!this.state.check.includes(set)) {
-          getCheck = this.state.check
-          getCheck.push(set)
-          this.setState({
+            getCheck = this.state.check
+            getCheck.push(set)
+            this.setState({
             check: getCheck
-          })
+            })
         }
     
         else{
@@ -300,11 +300,11 @@ export default class TambahLapak2 extends Component{
       addCheck2(set) {
 
         if (!this.state.check.includes(set)) {
-          getCheck = this.state.check
-          getCheck.push(set)
-          this.setState({
+            getCheck = this.state.check
+            getCheck.push(set)
+            this.setState({
             check: getCheck
-          })
+            })
         }
     
         else{
@@ -315,6 +315,43 @@ export default class TambahLapak2 extends Component{
             })
         }
     
+      }
+
+      selectPhotoTapped() {
+        const options = {
+            quality: 1.0,
+            maxWidth: 500,
+            maxHeight: 500,
+            storageOptions: {
+            skipBackup: true
+            }
+        };
+    
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled photo picker');
+            }
+            else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            }
+            else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            }
+            else {
+                let source = { uri: response.uri };
+
+                // You can also display the image using data:
+                // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+                this.setState({
+
+                    ImageSource: source
+
+                });
+            }
+        });
       }
 
     render(){
@@ -328,187 +365,195 @@ export default class TambahLapak2 extends Component{
                     </Body>
                 </Header>
                 <Content padder>
-                <Form>
-                    <Picker
-                        iosHeader="Asisten Lapangan Terdekat"
-                        androidHeader="Asisten Lapangan Terdekat"
-                        mode="dropdown"
-                        selectedValue={this.state.selected1}
-                        onValueChange={this.onValueChange.bind(this)}
-                        style={{marginLeft: -7, marginBottom: 10}}
-                        >
+                    <Form>
+                        <Label>Pilih asisten</Label>
+                        <Picker
+                            iosHeader="Asisten Lapangan Terdekat"
+                            androidHeader="Asisten Lapangan Terdekat"
+                            mode="dialog"
+                            selectedValue={this.state.selected1}
+                            onValueChange={this.onValueChange.bind(this)}
+                            style={{marginLeft: -7, marginBottom: 10}}
+                            >
+                            
+                            <Picker.Item label="Algojo" value="key1" />
+                            <Picker.Item label="Sumanto" value="key2" />
+                            <Picker.Item label="Diwan" value="key3" />
+                            <Picker.Item label="Supri" value="key4" />
+                        </Picker>
+
+                        <Label>Nama Toko</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
+
+                        <Label style={styles.batasAtas}>Slogan</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
                         
-                        <Picker.Item label="Asisten Lapangan Terdekat" value="key0" />
-                        <Picker.Item label="Algojo" value="key1" />
-                        <Picker.Item label="Sumanto" value="key2" />
-                        <Picker.Item label="Diwan" value="key3" />
-                        <Picker.Item label="Supri" value="key4" />
-                    </Picker>
+                        <Label style={styles.batasAtas}>Logo Toko</Label>
+                        <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+    
+                            <View style={styles.ImageContainer}>
+                
+                            { this.state.ImageSource === null ? <Text>Select a Photo</Text> :
+                            <Image style={styles.ImageContainer} source={this.state.ImageSource} />
+                            }
+                
+                            </View>
+                
+                        </TouchableOpacity>
 
-                    <Label>Nama Toko</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
+                        <Label style={styles.batasAtas}>Deskripsi</Label>
+                        <Textarea rowSpan={5} bordered/>
 
-                    <Label style={styles.batasAtas}>Slogan</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
-                    
-                    <Label style={styles.batasAtas}>Logo Toko</Label>
-                    <Button transparent onPress={()=> {alert("Coming Soon")}}>
-                        <Text style={styles.fileChooser}>TAMBAHKAN FILE</Text>
-                    </Button>
+                        <Label style={styles.batasAtas}>Alamat Lengkap</Label>
+                        <Textarea rowSpan={5} bordered/>
 
-                    <Label style={styles.batasAtas}>Deskripsi</Label>
-                    <Textarea rowSpan={5} bordered/>
+                        <Label style={styles.batasAtas}>Kota</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
 
-                    <Label style={styles.batasAtas}>Alamat Lengkap</Label>
-                    <Textarea rowSpan={5} bordered/>
+                        <Label style={styles.batasAtas}>Kode Pos</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
 
-                    <Label style={styles.batasAtas}>Kota</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
+                        <Label style={styles.batasAtas}>Situs Web</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
 
-                    <Label style={styles.batasAtas}>Kode Pos</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
+                        <Label style={styles.batasAtas}>No Telp</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
 
-                    <Label style={styles.batasAtas}>Situs Web</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
+                        <Label style={styles.batasAtas}>Alamat Email</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
 
-                    <Label style={styles.batasAtas}>No Telp</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
+                        <Label style={styles.batasAtas}>Nama Bank dan No Rek.</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
 
-                    <Label style={styles.batasAtas}>Alamat Email</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
+                        <Label style={styles.batasAtas}>Jenis barang (Kategori)</Label>
 
-                    <Label style={styles.batasAtas}>Nama Bank dan No Rek.</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
-
-                    <Label style={styles.batasAtas}>Jenis barang (Kategori)</Label>
-
-                    {this.state.items.map((items, key) => (
-                        <ListItem key={key} style={styles.iteme}>
-                            <CheckBox onPress={() => this.addCheck(items.id)} checked={this.state.check.includes(items.id) ? true : false} />
-                        <Body>
-                            <Text>{items.name}</Text>
-                        </Body>
-                        </ListItem>
-                    ))}
-
-                    {/* {this.state.check.map((check, key) => (
-                        <Text key={key}>{check}</Text>
-                    ))} */}
-
-
-                    
-                    
-                    <Label style={styles.batasAtas}>Status Produk (Kategori)</Label>
-                    
-                    {this.state.items3.map((item, index)=> {
-                        return(
-                            <ListItem key={item.name} style={styles.iteme}>
-                                <Radio selected = {item.name == this.state.selectedName ? true : false} onPress={()=> this.checkRadio(item.name)} />
-                                <Body>
-                                <Text>{item.name}</Text>
-                                </Body>
+                        {this.state.items.map((items, key) => (
+                            <ListItem key={key} style={styles.iteme}>
+                                <CheckBox onPress={() => this.addCheck(items.id)} checked={this.state.check.includes(items.id) ? true : false} />
+                            <Body>
+                                <Text>{items.name}</Text>
+                            </Body>
                             </ListItem>
-                        )
-                    } )}
-                    
-                    <Label style={styles.batasAtas}>Jasa Pengiriman</Label>
+                        ))}
 
-                    {this.state.items2.map((items, key) => (
-                        <ListItem key={key} style={styles.iteme}>
-                            <CheckBox onPress={() => this.addCheck2(items.id)} checked={this.state.check.includes(items.id) ? true : false} />
-                        <Body>
-                            <Text>{items.name}</Text>
-                        </Body>
-                        </ListItem>
-                    ))}
+                        {/* {this.state.check.map((check, key) => (
+                            <Text key={key}>{check}</Text>
+                        ))} */}
 
-                    {/* {this.state.check.map((check, key) => (
-                        <Text key={key}>{check}</Text>
-                    ))} */}
 
-                    <Label style={styles.batasAtas}>Nama Produk (max 70 karakter)</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
+                        
+                        
+                        <Label style={styles.batasAtas}>Status Produk (Kategori)</Label>
+                        
+                        {this.state.items3.map((item, index)=> {
+                            return(
+                                <ListItem key={item.name} style={styles.iteme}>
+                                    <Radio selected = {item.name == this.state.selectedName ? true : false} onPress={()=> this.checkRadio(item.name)} />
+                                    <Body>
+                                    <Text>{item.name}</Text>
+                                    </Body>
+                                </ListItem>
+                            )
+                        } )}
+                        
+                        <Label style={styles.batasAtas}>Jasa Pengiriman</Label>
 
-                    <Label style={styles.batasAtas}>Gambar Produk</Label>
-                    <Button transparent onPress={()=> {alert("Coming Soon")}}>
-                        <Text style={styles.fileChooser}>TAMBAHKAN FILE</Text>
-                    </Button>
-
-                    <Label style={styles.batasAtas}>Harga</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
-
-                    <Label style={styles.batasAtas}>Pemesanan minimun/buah</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
-
-                    <Label style={styles.batasAtas}>Kondisi</Label>
-                    
-                    {this.state.items4.map((item, index)=> {
-                        return(
-                            <ListItem key={item.name} style={styles.iteme}>
-                                <Radio selected = {item.name == this.state.selectedName ? true : false} onPress={()=> this.checkRadio2(item.name)} />
-                                <Body>
-                                <Text>{item.name}</Text>
-                                </Body>
+                        {this.state.items2.map((items, key) => (
+                            <ListItem key={key} style={styles.iteme}>
+                                <CheckBox onPress={() => this.addCheck2(items.id)} checked={this.state.check.includes(items.id) ? true : false} />
+                            <Body>
+                                <Text>{items.name}</Text>
+                            </Body>
                             </ListItem>
-                        )
-                    } )}
+                        ))}
 
-                    <Label style={styles.batasAtas}>Deskripsi Produk</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
+                        {/* {this.state.check.map((check, key) => (
+                            <Text key={key}>{check}</Text>
+                        ))} */}
 
-                    <Label style={styles.batasAtas}>Berat (kg)</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
+                        <Label style={styles.batasAtas}>Nama Produk (max 70 karakter)</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
 
-                    <Label style={styles.batasAtas}>Aktifkan preorder untuk waktu proses produksi yang lebih lama</Label>
-
-                    {this.state.items5.map((item, index)=> {
-                        return(
-                            <ListItem key={item.name} style={styles.iteme}>
-                                <Radio selected = {item.name == this.state.selectedName ? true : false} onPress={()=> this.checkRadio3(item.name)} />
-                                <Body>
-                                <Text>{item.name}</Text>
-                                </Body>
-                            </ListItem>
-                        )
-                    } )}
-
-                    <Label style={styles.batasAtas}>Waktu Proses (wajib diisi untuk mengetahui lama produk diproses)</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
-
-                    <ListItem>
-                        <Button style={styles.buttone}>
-                            <Text style={styles.labelBtn}>Submit</Text>
+                        <Label style={styles.batasAtas}>Gambar Produk</Label>
+                        <Button transparent onPress={()=> {alert("Coming Soon")}}>
+                            <Text style={styles.fileChooser}>TAMBAHKAN FILE</Text>
                         </Button>
-                    </ListItem>
-                </Form>
+
+                        <Label style={styles.batasAtas}>Harga</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
+
+                        <Label style={styles.batasAtas}>Pemesanan minimun/buah</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
+
+                        <Label style={styles.batasAtas}>Kondisi</Label>
+                        
+                        {this.state.items4.map((item, index)=> {
+                            return(
+                                <ListItem key={item.name} style={styles.iteme}>
+                                    <Radio selected = {item.name == this.state.selectedName ? true : false} onPress={()=> this.checkRadio2(item.name)} />
+                                    <Body>
+                                    <Text>{item.name}</Text>
+                                    </Body>
+                                </ListItem>
+                            )
+                        } )}
+
+                        <Label style={styles.batasAtas}>Deskripsi Produk</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
+
+                        <Label style={styles.batasAtas}>Berat (kg)</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
+
+                        <Label style={styles.batasAtas}>Aktifkan preorder untuk waktu proses produksi yang lebih lama</Label>
+
+                        {this.state.items5.map((item, index)=> {
+                            return(
+                                <ListItem key={item.name} style={styles.iteme}>
+                                    <Radio selected = {item.name == this.state.selectedName ? true : false} onPress={()=> this.checkRadio3(item.name)} />
+                                    <Body>
+                                    <Text>{item.name}</Text>
+                                    </Body>
+                                </ListItem>
+                            )
+                        } )}
+
+                        <Label style={styles.batasAtas}>Waktu Proses (wajib diisi untuk mengetahui lama produk diproses)</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
+
+                        <ListItem>
+                            <Button style={{flex: 1,  justifyContent: 'center', alignItems: 'center'}}>
+                                <Text style={styles.labelBtn}>Submit</Text>
+                            </Button>
+                        </ListItem>
+                    </Form>
                 </Content>
 
                 <Footer>
@@ -523,7 +568,7 @@ export default class TambahLapak2 extends Component{
                             <Icon name="settings" />
                         </Button>
                     </FooterTab>
-              </Footer>
+                </Footer>
             </Container>
         )
     }
@@ -535,6 +580,24 @@ const styles = StyleSheet.create({
         height: 40,
         marginLeft: 43,
     },
+
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#FFF8E1'
+      },
+   
+      ImageContainer: {
+        borderRadius: 10,
+        width: 250,
+        height: 250,
+        borderColor: '#9B9B9B',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#CDDC39',
+        
+      },
 
     batasAtas:{
         marginTop: 10

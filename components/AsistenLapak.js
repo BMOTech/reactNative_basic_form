@@ -76,8 +76,7 @@ export default class AsistenLapak extends Component{
             selectedName: name
         })
 
-        if(this.state.selectedName == name)
-        {
+        if(this.state.selectedName == name){
             this.setState({
                 selectedName: ""
             })
@@ -89,8 +88,7 @@ export default class AsistenLapak extends Component{
             selectedName2: name
         })
 
-        if(this.state.selectedName2 == name)
-        {
+        if(this.state.selectedName2 == name){
             this.setState({
                 selectedName2: ""
             })
@@ -108,77 +106,77 @@ export default class AsistenLapak extends Component{
                     </Body>
                 </Header>
                 <Content padder>
-                <Form>
-                    <Label style={styles.batasAtas}>Produk Pesanan</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
+                    <Form>
+                        <Label style={styles.batasAtas}>Produk Pesanan</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
 
-                    <Label style={styles.batasAtas}>Stock Availability</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
+                        <Label style={styles.batasAtas}>Stock Availability</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
 
-                    <Label style={styles.batasAtas}>Special Request</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
-                    
-                    <Label style={styles.batasAtas}>Order Number</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
-                    
-                    <Label style={styles.batasAtas}>Type of Shipping</Label>
-                    
-                    {this.state.items.map((item, index)=> {
-                        return(
-                            <ListItem key={item.name} style={styles.iteme}>
-                                <Radio selected = {item.name == this.state.selectedName ? true : false} onPress={()=> this.checkRadio(item.name)} />
-                                <Body>
-                                <Text>{item.name}</Text>
-                                </Body>
-                            </ListItem>
-                        )
-                    } )}
+                        <Label style={styles.batasAtas}>Special Request</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
+                        
+                        <Label style={styles.batasAtas}>Order Number</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
+                        
+                        <Label style={styles.batasAtas}>Type of Shipping</Label>
+                        
+                        {this.state.items.map((item, index)=> {
+                            return(
+                                <ListItem key={item.name} style={styles.iteme}>
+                                    <Radio selected = {item.name == this.state.selectedName ? true : false} onPress={()=> this.checkRadio(item.name)} />
+                                    <Body>
+                                    <Text>{item.name}</Text>
+                                    </Body>
+                                </ListItem>
+                            )
+                        } )}
 
-                    <Label style={styles.batasAtas}>Type of Packing</Label>
-                    
-                    {this.state.items2.map((item, index)=> {
-                        return(
-                            <ListItem key={item.name} style={styles.iteme}>
-                                <Radio selected = {item.name == this.state.selectedName2 ? true : false} onPress={()=> this.checkRadio2(item.name)} />
-                                <Body>
-                                <Text>{item.name}</Text>
-                                </Body>
-                            </ListItem>
-                        )
-                    } )}
+                        <Label style={styles.batasAtas}>Type of Packing</Label>
+                        
+                        {this.state.items2.map((item, index)=> {
+                            return(
+                                <ListItem key={item.name} style={styles.iteme}>
+                                    <Radio selected = {item.name == this.state.selectedName2 ? true : false} onPress={()=> this.checkRadio2(item.name)} />
+                                    <Body>
+                                    <Text>{item.name}</Text>
+                                    </Body>
+                                </ListItem>
+                            )
+                        } )}
 
-                    <Label style={styles.batasAtas}>Name of Customer</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
+                        <Label style={styles.batasAtas}>Name of Customer</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
 
-                    <Label style={styles.batasAtas}>Customer Phone Number</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
+                        <Label style={styles.batasAtas}>Customer Phone Number</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
 
-                    <Label style={styles.batasAtas}>Customer Address</Label>
-                    <Textarea rowSpan={5} bordered/>
+                        <Label style={styles.batasAtas}>Customer Address</Label>
+                        <Textarea rowSpan={5} bordered/>
 
-                    <Label style={styles.batasAtas}>Nearest Courier Location</Label>
-                    <Item regular>
-                        <Input />
-                    </Item>
-                    
-                    <ListItem>
-                        <Button style={styles.buttone}>
-                            <Text style={styles.labelBtn}>Kirim</Text>
-                        </Button>
-                    </ListItem>
-                </Form>
+                        <Label style={styles.batasAtas}>Nearest Courier Location</Label>
+                        <Item regular>
+                            <Input />
+                        </Item>
+                        
+                        <ListItem>
+                            <Button style={styles.buttone}>
+                                <Text style={styles.labelBtn}>Kirim</Text>
+                            </Button>
+                        </ListItem>
+                    </Form>
                 </Content>
 
                 <Footer>
